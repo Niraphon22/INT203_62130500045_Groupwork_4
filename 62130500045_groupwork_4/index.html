@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello Cat!</title>
+
+  <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+  <!-- Using via Google Web Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css" rel="stylesheet" />
+
+  <!-- https://tailwindcss.com/docs/installation -->
+  <!-- Using Tailwind via CDN -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+
+<body>
+  <div id="app" class="container px-5 py-2 mx-auto lg:px-32">
+    <h1 class="text-3xl font-bold text-center title-font pt-8">Cat Gallery ( {{ countLike }} )</h1>
+    <div class="flex justify-center mt-4 ">
+      <div>
+      <input @keyup="searchPhoto" v-show="search.click" v-model="boxsearch" placeholder="Enter cat breed!"
+              class="p-2 bg-white rounded border-2 border-gray-600">
+      </div>
+      <div>
+        <button  @click="statusSearch" v-show="search.nclick">
+        <span class="material-icons">search</span>
+        </button>
+        <button class="ml-1 p-2 rounded focus:outline-none bg-blue-300" v-show="search.click" @click="statusSearch">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+
+    <div class="w-auto flex justify-center h-full">
+      <div class="flex justify-center h-full" v-show="notFound">
+        <p class="font-bold text-2xl pt-8 pl-56"> Your search isn't listed. </p>
+      </div>
+
+      <div class="overflow-hidden">
+        <ul class="grid grid-cols-3 gap-x-28 gap-y-8 mt-4 lg:grid-cols-3">
+          <li v-show="tasks.show" v-for="(tasks,index) in tasks">
+            <span class="mb-2 text-xl font-medium tracking-tighter text-gray-900 title-font inset-y-0 right-0 pl-4">
+              {{tasks.title}}
+            </span>
+            <img :src="tasks.image" :alt="tasks.title" @click="showPhoto(index)" 
+            class= "transform hover:scale-110 object-center w-72 h-80 rounded-md lg:h-auto px-4 pt-2">
+            
+            <button @click="toggleDone(index)">
+              <i class="material-icons pl-4 " v-show="tasks.undone">
+                favorite_border
+              </i>
+            </button>
+
+            <button @click="toggleDone(index)">
+            <i  class="material-icons pl-4" style=color:red v-show="tasks.done">
+              favorite
+            </i>
+          </button>
+          </li>
+        </ul>
+      </div>
+
+      <div v-show="photoShow" class="bg-black bg-opacity-75 w-3/4 mt-4 h-auto flex justify-center absolute">
+        <button @click="closePhoto">
+          <span class="material-icons top-0 right-0 text-5xl text-white absolute">
+            close
+            </span>
+        </button>
+        <div class="md:py-40">
+          <img v-bind:src="photo" class="item-center" width="400" height="600">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+                    
+                                    
+
+  <!-- my main.js -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
